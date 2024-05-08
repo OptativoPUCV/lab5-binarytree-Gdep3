@@ -72,7 +72,6 @@ void insertTreeMap(TreeMap *tree, void *key, void *value) {
   }
 }
 
-
 TreeNode *minimum(TreeNode *x) { return NULL; }
 
 void removeNode(TreeMap *tree, TreeNode *node) {}
@@ -93,9 +92,9 @@ Pair *searchTreeMap(TreeMap *tree, void *key) {
     if (is_equal(tree, key, aux->pair->key)) {
       tree->current = aux;
       return aux->pair;
-    } else if (tree->lower_than(key, aux->pair->key) == 0) {
+    } else if (tree->lower_than(key, aux->pair->key)) {
       aux = aux->right;
-    } else if (tree->lower_than(key, aux->pair->key) == 1) {
+    } else {
       aux = aux->left;
     }
   }
