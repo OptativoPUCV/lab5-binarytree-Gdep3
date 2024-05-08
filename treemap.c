@@ -69,10 +69,10 @@ Pair *searchTreeMap(TreeMap *tree, void *key) {
       return aux->pair;
     }
     else if(tree->lower_than(key, aux->pair->key) == 0){
-      aux = aux->left;
+      aux = aux->right;
     }
     else if(tree->lower_than(key, aux->pair->key) == 1){
-      aux = aux->right;
+      aux = aux->left;
     }
   }
   return NULL;
