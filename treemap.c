@@ -80,24 +80,21 @@ TreeNode *minimum(TreeNode *x) {
 }
 
 void removeNode(TreeMap *tree, TreeNode *node) {
-  if (node == NULL) return; // Verificar si el nodo es nulo
+  if (node == NULL)
+    return;
 
   if (node->left == NULL && node->right == NULL) {
-    // Si el nodo no tiene hijos, simplemente lo liberamos
     if (node->parent != NULL) {
-      // Verificar si el nodo tiene un padre
       if (node->parent->left == node) {
         node->parent->left = NULL;
       } else {
         node->parent->right = NULL;
       }
     } else {
-      // Si no tiene padre, es la raíz del árbol
       tree->root = NULL;
     }
     free(node);
   } else if (node->left == NULL || node->right == NULL) {
-    // Si el nodo tiene solo un hijo, actualizamos las referencias
     TreeNode *child = (node->left != NULL) ? node->left : node->right;
     if (node->parent != NULL) {
       if (node->parent->left == node) {
@@ -107,19 +104,16 @@ void removeNode(TreeMap *tree, TreeNode *node) {
       }
       child->parent = node->parent;
     } else {
-      // Si no tiene padre, es la raíz del árbol
       tree->root = child;
       child->parent = NULL;
     }
     free(node);
   } else {
-    // Si el nodo tiene ambos hijos
-    TreeNode *successor = minimum(node->right);
-    node->pair = successor->pair;
-    removeNode(tree, successor); // Eliminamos el sucesor recursivamente
+    TreeNode *aux = minimum(node->right);
+    node->pair = aux->pair;
+    removeNode(tree, aux);
   }
 }
-
 
 void eraseTreeMap(TreeMap *tree, void *key) {
   if (tree == NULL || tree->root == NULL)
