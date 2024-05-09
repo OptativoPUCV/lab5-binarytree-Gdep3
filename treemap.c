@@ -122,7 +122,7 @@ Pair *nextTreeMap(TreeMap *tree) {
     aux = minimum(aux->right);
     return aux->pair;
   } else {
-    while (aux != NULL && tree->current->pair->key < aux->pair->key) {
+    while (aux != NULL && tree->lower_than(aux, tree->current) == 0) {
       aux = aux->parent;
     }
     if (aux != NULL)
