@@ -123,7 +123,8 @@ Pair *nextTreeMap(TreeMap *tree) {
     return aux->pair;
   }
   else{
-    while(aux->parent != NULL && aux == aux->parent->right){
+    Pair *aux2 = aux->pair;
+    while(aux != NULL && aux->pair < aux2){
       aux = aux->parent;
     }
     tree->current = aux->parent;
