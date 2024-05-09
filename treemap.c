@@ -80,32 +80,46 @@ TreeNode *minimum(TreeNode *x) {
 }
 
 void removeNode(TreeMap *tree, TreeNode *node) {
-  Pair *aux = node->pair;
-  if(searchTreeMap(tree, node->pair->key) == NULL) return;
-  if(node->left == NULL && node->right == NULL){
-    if(node->parent->left == NULL){
-      free(node->parent->right);
+  if (node == NULL) return; // Verificar si el nodo es nulo
+
+  if (node->left == NULL && node->right == NULL) {
+    // Si el nodo no tiene hijos, simplemente lo liberamos
+    if (node->parent != NULL) {
+      // Verificar si el nodo tiene un padre
+      if (node->parent->left == node) {
+        node->parent->left = NULL;
+      } else {
+        node->parent->right = NULL;
+      }
+    } else {
+      // Si no tiene padre, es la raíz del árbol
+      tree->root = NULL;
     }
-    else free(node->parent->left);
-  }
-  else if(node->left == NULL || node->right == NULL){
-    if(node->left == NULL){
-      aux = node->right->pair;
-      node->parent->right->pair = aux;
-      free(node);
-    }
-    else{
-      aux = node->left->pair;
-      node->parent->left->pair = aux;
-      free(node);
-    }
-  }
-  else{
-    TreeNode *aux2 = minimum(node->right);
-    node->parent->right->pair = aux2->pair;
     free(node);
+  } else if (node->left == NULL || node->right == NULL) {
+    // Si el nodo tiene solo un hijo, actualizamos las referencias
+    TreeNode *child = (node->left != NULL) ? node->left : node->right;
+    if (node->parent != NULL) {
+      if (node->parent->left == node) {
+        node->parent->left = child;
+      } else {
+        node->parent->right = child;
+      }
+      child->parent = node->parent;
+    } else {
+      // Si no tiene padre, es la raíz del árbol
+      tree->root = child;
+      child->parent = NULL;
+    }
+    free(node);
+  } else {
+    // Si el nodo tiene ambos hijos
+    TreeNode *successor = minimum(node->right);
+    node->pair = successor->pair;
+    removeNode(tree, successor); // Eliminamos el sucesor recursivamente
   }
 }
+
 
 void eraseTreeMap(TreeMap *tree, void *key) {
   if (tree == NULL || tree->root == NULL)
