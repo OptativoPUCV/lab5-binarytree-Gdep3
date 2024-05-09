@@ -95,22 +95,22 @@ void removeNode(TreeMap *tree, TreeNode *node) {
     }
     free(node);
   } else if (node->left == NULL || node->right == NULL) {
-    TreeNode *child;
+    TreeNode *hijo;
     if (node->left != NULL) {
-      child = node->left;
+      hijo = node->left;
     } else {
-      child = node->right;
+      hijo = node->right;
     }
     if (node->parent != NULL) {
       if (node->parent->left == node) {
-        node->parent->left = child;
+        node->parent->left = hijo;
       } else {
-        node->parent->right = child;
+        node->parent->right = hijo;
       }
-      child->parent = node->parent;
+      hijo->parent = node->parent;
     } else {
-      tree->root = child;
-      child->parent = NULL;
+      tree->root = hijo;
+      hijo->parent = NULL;
     }
     free(node);
   } else {
