@@ -159,11 +159,13 @@ Pair *nextTreeMap(TreeMap *tree) {
   TreeNode *aux = tree->current;
   TreeNode *aux2 = tree->current;
   if (aux->right == NULL) {
-    while (aux != NULL && aux->pair->key > aux2->pair->key) {
+    while (aux != NULL && tree->lower_than(aux->pair->key, aux2->pair->key)) {
       aux = aux->parent;
     }
-    tree->current = aux;
-    return aux->pair;
+    if (aux != NULL) {
+      tree->current = aux;
+      return aux->pair;
+    }
   } else {
     aux = minimum(aux->right);
     tree->current = aux;
