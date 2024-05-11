@@ -152,9 +152,11 @@ Pair *upperBound(TreeMap *tree, void *key) {
     if (tree->lower_than(key, aux->pair->key) == 0){
       ub = aux;
       aux = aux->left;
+      return ub->pair;
     }
     else{
       aux = aux->right;
+      return ub->pair;
     }
   }
   return NULL; 
