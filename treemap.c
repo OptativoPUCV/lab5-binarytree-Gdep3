@@ -157,9 +157,13 @@ Pair *firstTreeMap(TreeMap *tree) {
 
 Pair *nextTreeMap(TreeMap *tree) {
   TreeNode *aux = tree->current;
-  if(aux->right == NULL){
-    return NULL;
-  }else{
+  if (aux->right == NULL) {
+    while (aux != NULL && aux->pair->key < tree->current->pair->key) {
+      aux = aux->parent;
+    }
+    tree->current = aux;
+    return aux->pair;
+  } else {
     aux = minimum(aux->right);
     tree->current = aux;
     return aux->pair;
