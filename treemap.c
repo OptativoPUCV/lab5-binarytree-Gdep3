@@ -158,7 +158,7 @@ Pair *firstTreeMap(TreeMap *tree) {
 Pair *nextTreeMap(TreeMap *tree) {
   TreeNode *aux = tree->current;
   if (aux->right == NULL) {
-    while (aux != NULL && tree->current->pair->key < aux->pair->key) {
+    while (aux != NULL && tree->lower_than(tree->current->pair->key, aux->pair->key)==0) {
       aux = aux->parent;
     }
     tree->current = aux;
