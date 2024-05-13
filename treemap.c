@@ -146,7 +146,7 @@ Pair *searchTreeMap(TreeMap *tree, void *key) {
 }
 
 Pair *upperBound(TreeMap *tree, void *key) {
-  if(tree == NULL || tree->root == NULL){
+  if (tree == NULL || tree->root == NULL) {
     return NULL;
   }
   TreeNode *aux = tree->root;
@@ -161,13 +161,12 @@ Pair *upperBound(TreeMap *tree, void *key) {
     } else {
       aux = aux->right;
     }
-    if (ub != NULL) {
-      return ub->pair;
-    } else {
-      return NULL;
-    }
   }
-  return NULL;
+  if (ub != NULL) {
+    return ub->pair;
+  } else {
+    return NULL;
+  }
 }
 
 Pair *firstTreeMap(TreeMap *tree) {
